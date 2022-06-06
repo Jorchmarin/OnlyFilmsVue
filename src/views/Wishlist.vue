@@ -3,10 +3,11 @@
   <ul>
       <li v-for="pelicula in peliculas"
       :key="pelicula.idPelicula"> 
-        <Pelicula :idPelicula="pelicula.idPelicula" />
-        <button @click="$router.push(`/pelicula/${pelicula.idPelicula}`)">Ver</button>
-        <button @click="eliminarDeWishlist(pelicula.idPelicula)">Eliminar de la wishlist</button>
+                      <div class="movie-cardwl">
 
+        <Peliculawl :idPelicula="pelicula.idPelicula" />
+        <button @click="eliminarDeWishlist(pelicula.idPelicula)">Eliminar de la wishlist</button>
+      </div>  
       </li>
   </ul>
   <div>
@@ -19,7 +20,7 @@
 </template>
 
 <script>
-import Pelicula from '../components/Pelicula.vue'
+import Peliculawl from '../components/Peliculawl.vue'
 export default {
     name: "Home",
     data() {
@@ -28,7 +29,7 @@ export default {
         };
     },
     created() {
-        fetch("https://localhost:44326/userWishlist/" + this.user.id, {})
+        fetch("http://localhost:44326/userWishlist/" + this.user.id, {})
             .then((result) => result.json())
             .then((data) => {
             this.peliculas = data;
@@ -44,7 +45,7 @@ export default {
     methods:{
         eliminarDeWishlist(id_Pelicula) {
       fetch(
-        "https://localhost:44326/getWishlistBy/" +
+        "http://localhost:44326/getWishlistBy/" +
           this.user.id +
           "/" +
           id_Pelicula,
@@ -56,7 +57,7 @@ export default {
         .then((result) => result.json())
         .then((data) => {
           console.log(data);
-          fetch("https://localhost:44326/api/Wishlists/" + data[0].id, {
+          fetch("http://localhost:44326/api/Wishlists/" + data[0].id, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             
@@ -65,7 +66,7 @@ export default {
     },
     },
 
-    components: { Pelicula }
+    components: { Peliculawl }
 };
 </script>
 
@@ -74,4 +75,35 @@ export default {
   width: 100px;
   height: 100px;
 }
+.movie-cardwl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 300px;
+  margin: 10px;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  overflow: hidden;
+}
+.movie-cardwl img{
+ 
+  width: 200px;
+  height: 278px;
+
+ }
+ .movie-cardwl button{
+ 
+  width: 200px;
+  height: 278px;
+  border: 0px;
+  background-color: black;
+  color: #f2f2f2;
+  font-size: 15px;
+  cursor: pointer;
+  
+
+ }
 </style>

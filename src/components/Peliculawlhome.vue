@@ -1,10 +1,16 @@
 <template>
-  <div class="text">
-    <div>
+  <div style="display: flex">
+    <div style="display: flex">
       <img class="img" :src="this.pelicula.imageUrl" />
     </div>
-    <div style="margin: auto">
+    <div style="display: flex; flex-direction: column; margin: auto">
       {{ this.pelicula.name }}
+      <button
+        style="width: 50px; margin: auto"
+        @click="$router.push(`/pelicula/${pelicula.id}`)"
+      >
+        Ver
+      </button>
     </div>
   </div>
 </template>
@@ -32,13 +38,7 @@ export default {
 
 <style>
 .img {
-  height: 50px;
-  width: 60px;
-}
-.text {
-  text-align: center;
-  font-size: 10px;
-  display: flex;
-  flex-direction: column;
+  width: 100px;
+  height: 100px;
 }
 </style>

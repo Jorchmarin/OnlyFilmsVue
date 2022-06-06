@@ -11,22 +11,26 @@
       <div class="card-body">
         <div class="movie-title">{{ pelicula.name }}</div>
         <div class="movie-intro">
-          <div class="">{{ media }}</div>
-          <div class="div">{{ pelicula.valoration }}</div>
+          <div><p>Puntuacion de los usuarios {{ media }}</p>
+        <p>Nota expertos {{ pelicula.valoration }}</p></div>
           <div class="div">{{ pelicula.description }}</div>
-          <button @click="addWishlist(pelicula.id)">Añadir wishlist</button>
-          <form @submit.prevent="comentar">
+          
+          <form  @submit.prevent="comentar">
             <input
+            class="combox"
               type="text"
               placeholder="Escribe tu comentario aqui"
               v-model="content"
               required
             />
-
-            <button type="submit" @click="comentar(content)">Comentar</button>
+            <button style="background-color: transparent;color:white;border:2px solid white;margin-top: 3px;
+             
+" type="submit" @click="comentar(content)">Comentar</button>
           </form>
+          <div style="display:flex;justify-content: space-between;margin-top: 5px;">
+          <div style="display:flex">
           <form @submit.prevent="puntuar">
-            <input
+            <input style="width:50px;margin-right: 5px;border-radius: 10px;border-color: white;"
               type="number"
               min="0"
               max="10"
@@ -34,15 +38,24 @@
               placeholder=""
               v-model="puntos"
               required
+              
             />
 
             <button type="submit" @click="puntuar(puntos)">Puntuar</button>
           </form>
+          </div>
+          <div style="display:flex">
+                    <button @click="addWishlist(pelicula.id)">Añadir wishlist</button>
+            </div>
+            </div>
         </div>
       </div>
     </div>
-
-    <ul>
+       <div style="display:flex;margin-top: 20px;" ref="divcom"  class="Commentario">
+         <button class="com" @click="goto('divcom')">Comentarios</button>
+       </div>
+    <div style="display:flex;marin:auto">
+    <ul class="coments">
       <li v-for="comentario in comentarios" :key="comentario.id">
         <div class="div">{{ comentario.idUsuario }}</div>
 
@@ -53,6 +66,7 @@
         <div class="div">{{ comentario.fecha }}</div>
       </li>
     </ul>
+    </div>
   </div>
 </template>
 <script>
@@ -75,18 +89,18 @@ export default {
   },
 
   created() {
-    fetch("https://localhost:44326/api/Peliculas/" + this.$route.params.id)
+    fetch("http://localhost:44326/api/Peliculas/" + this.$route.params.id)
       .then((result) => result.json())
       .then((data) => (this.pelicula = data));
 
-    fetch("https://localhost:44326/comentariosPeli/" + this.$route.params.id)
+    fetch("http://localhost:44326/comentariosPeli/" + this.$route.params.id)
       .then((result) => result.json())
       .then((data) => {
         this.comentarios = data;
         console.log(data);
       });
     //media puntuaciones
-    fetch("https://localhost:44326/media/" + this.$route.params.id)
+    fetch("http://localhost:44326/media/" + this.$route.params.id)
       .then((result) => result.json())
       .then((data) => {
         this.media = data;
@@ -99,7 +113,7 @@ export default {
         idUsuario: this.user.id,
       });
 
-      fetch("https://localhost:44326/api/Wishlists", {
+      fetch("http://localhost:44326/api/Wishlists", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: item,
@@ -112,7 +126,7 @@ export default {
         description: content,
       });
 
-      fetch("https://localhost:44326/api/Comentarios", {
+      fetch("http://localhost:44326/api/Comentarios", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: item,
@@ -124,7 +138,7 @@ export default {
         idUsuario: this.user.id,
         Puntuacion1: puntos,
       });
-      fetch("https://localhost:44326/api/Puntuacions", {
+      fetch("http://localhost:44326/api/Puntuacions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: item2,
@@ -134,14 +148,20 @@ export default {
           this.idPut = data;
           console.log(data);
 
-          fetch("https://localhost:44326/api/Puntuacions/" + this.idPut, {
+          fetch("http://localhost:44326/api/Puntuacions/" + this.idPut, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: item2,
           });
         });
+      
     },
+    goto(refName) {
+      var element = this.$refs[refName];
+      var top = element.offsetTop;
 
+      window.scrollTo(0, top);
+    },
     mounted() {
       this.id = this.$route.params.id;
     },
@@ -164,7 +184,7 @@ export default {
 
 }
 .movie-img {
-  min-height: 300px;
+  min-height: 280px;
   overflow: hidden;
   }
 .movie-img img {
@@ -181,5 +201,24 @@ export default {
 .movie-intro {
   font-size: 16px;
 }
+.com{
+  margin: auto;
+  width: 100%;
+  border: none;
+  height: 50px;
+}
+.coments {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  list-style: none;
+  gap: 2em;
+  margin-top:10px;
+  padding-left: 0px !important;
 
+}
+.combox{
+  margin:5px 0 0px 0 !important;
+  height: 30px;
+  border-radius: 5px;
+}
 </style>

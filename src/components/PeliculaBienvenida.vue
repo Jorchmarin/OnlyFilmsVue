@@ -1,17 +1,29 @@
 <template>
     <div style="display:flex">
-        <div style="display:flex" @click="$router.push(`/pelicula/${pelicula.id}`)">
+        <div style="display:flex" @click="$router.push(`/peliculanl/${pelicula.id}`)">
         
         <img class="imgh" :src="this.pelicula.imageUrl"/>
     
 </div>
-
+<div class="body">
+      <div style="display:flex;width: 30px;
+        height: 30px;
+        line-height: 30px;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        border: solid 2px black;
+        color: red;
+        text-align: center;
+        display: block;">{{this.pelicula.valoration}}</div>
+      <div style="display:flex">{{this.pelicula.name}}</div>
+        
+        </div>
     </div>
 </template>
 <script>
 
 export default {
-    name: 'Pelicula',
+    name: 'Pelicula nl',
     data(){
         return{
             pelicula: {}

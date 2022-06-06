@@ -6,6 +6,7 @@ import Descripcion from '../views/Descripcion.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import Bienvenida from '../views/Bienvenida.vue'
+import DescripcionNoLog from '../views/DescripcionNoLog.vue'
 
 
 Vue.use(VueRouter)
@@ -22,10 +23,15 @@ const routes = [
     component: Bienvenida
   },
   {
+    path: '/peliculanl/:id',
+    name: 'Descripcion pelicula',
+    component: DescripcionNoLog
+  },
+  {
     path: '/pelicula/:id',
-      name: 'Descripcion pelicula',
-      component: Descripcion
-    },
+    name: 'Descripcion pelicula',
+    component: Descripcion
+  },
   {
     path: '/wishlist',
     name: 'Wishlist',

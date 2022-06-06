@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     async registerUser() {
-      await fetch("https://localhost:44326/api/Usuarios", {
+      await fetch("http://localhost:44326/api/Usuarios", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

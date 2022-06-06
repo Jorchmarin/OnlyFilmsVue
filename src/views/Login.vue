@@ -27,7 +27,7 @@ export default {
   },
   methods: {
      loginUser() {
-        fetch("https://localhost:44326/api/Usuarios/api/login", {
+        fetch("http://localhost:44326/api/Usuarios/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -6,16 +6,20 @@
     
 </div>
 <div class="body">
-      <div style="display:flex;width: 30px;
-        height: 30px;
-        line-height: 30px;
+          <div style="display:flex">{{this.pelicula.name}}</div>
+
+      <div style="
+        width: 40px;
+        height: 40px;
+        line-height: 36px;
         -moz-border-radius: 50%;
         border-radius: 50%;
-        border: solid 2px black;
-        color: red;
-        text-align: center;
+        border: solid 3px black;
+        color: blue;
+        font-size: 20px;
+        font-weight: bold;
+        
         display: block;">{{this.pelicula.valoration}}</div>
-      <div style="display:flex">{{this.pelicula.name}}</div>
         
         </div>
     </div>
@@ -37,7 +41,7 @@ export default {
         idPelicula: Number
     },
     created(){
-        fetch(`https://localhost:44326/api/Peliculas/${this.idPelicula}` , {
+        fetch(`http://localhost:44326/api/Peliculas/${this.idPelicula}` , {
 
         })
         .then((result) => result.json())

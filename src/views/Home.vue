@@ -94,8 +94,8 @@ No sabes que ver, prueba nuestro sistema de pelicula aleatoria        </button>
 
         <a style="margin-top:40px;text-decoration: none;" href="/wishlist">Wishlist</a>
         <li style="list-style:none;padding-bottom: 15px;" v-for="pelicula in peliculaswl" :key="pelicula.idPelicula">
-          <div class="movie-cardwl">
-            <Peliculawl :idPelicula="pelicula.idPelicula" />
+          <div class="movie-cardwish">
+            <Peliculawlhome :idPelicula="pelicula.idPelicula" />
           </div>
         </li>
       </div>
@@ -106,7 +106,7 @@ No sabes que ver, prueba nuestro sistema de pelicula aleatoria        </button>
 
 <script>
 import Pelicula from "../components/Pelicula.vue";
-import Peliculawl from "../components/Peliculawl.vue";
+import Peliculawlhome from "../components/Peliculawlhome.vue";
 import Peliculage from "../components/Peliculage.vue";
 
 
@@ -128,21 +128,21 @@ export default {
   },
 
   created() {
-    fetch("https://localhost:44326/api/Peliculas", {
+    fetch("http://localhost:44326/api/Peliculas", {
       headers: { "Content-Type": "application/json" },
     })
       .then((result) => result.json())
       .then((data) => {
         this.peliculas = data;
       });
-    fetch("https://localhost:44326/api/Generoes", {
+    fetch("http://localhost:44326/api/Generoes", {
       headers: { "Content-Type": "application/json" },
     })
       .then((result) => result.json())
       .then((data) => {
         this.generos = data;
       });
-    fetch("https://localhost:44326/userWishlist/" + this.user.id, {})
+    fetch("http://localhost:44326/userWishlist/" + this.user.id, {})
       .then((result) => result.json())
       .then((data) => {
         this.peliculaswl = data;
@@ -166,7 +166,7 @@ export default {
         idUsuario: this.user.id,
       });
 
-      fetch("https://localhost:44326/api/Wishlists", {
+      fetch("http://localhost:44326/api/Wishlists", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: item,
@@ -175,7 +175,7 @@ export default {
 
     eliminarDeWishlist(id_Pelicula) {
       fetch(
-        "https://localhost:44326/getWishlistBy/" +
+        "http://localhost:44326/getWishlistBy/" +
           this.user.id +
           "/" +
           id_Pelicula,
@@ -186,7 +186,7 @@ export default {
       )
         .then((result) => result.json())
         .then((data) => {
-          fetch("https://localhost:44326/api/Wishlists/" + data[0].id, {
+          fetch("http://localhost:44326/api/Wishlists/" + data[0].id, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
           });
@@ -195,7 +195,7 @@ export default {
 
     onChange(event) {
       this.key = event.target.value;
-      fetch("https://localhost:44326/getPelisBy/" + this.key)
+      fetch("http://localhost:44326/getPelisBy/" + this.key)
         .then((result) => result.json())
         .then((data) => {
           this.listaIds = data;
@@ -204,7 +204,7 @@ export default {
   },
   components: {
     Pelicula,
-    Peliculawl,
+    Peliculawlhome,
     Peliculage,
   },
 };
@@ -240,7 +240,8 @@ ul {
 .primelist:first-child img {
   width: 100%;
   height: 500px;
-  object-fit: contain;
+  
+
 }
 .primelist:first-child  .movie-card .body{
   display:none;
@@ -253,6 +254,7 @@ max-width: 333px
 .primelist:nth-child(2) {
   grid-column: 3/5;
   grid-row: 1/3;
+
 }
 .primelist:nth-child(2) img{
   height: 240px;
@@ -299,7 +301,7 @@ max-width: 333px
   min-height: 215px !important;
 }
 
-.movie-cardwl {
+.movie-cardwish {
   background-color: #fff;
   border-radius: 10px;
   overflow: hidden;
