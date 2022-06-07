@@ -6,6 +6,8 @@
     
 </div>
 <div class="body">
+          <div style="display:flex">{{this.pelicula.name}}</div>
+
       <div style="display:flex;width: 30px;
         height: 30px;
         line-height: 30px;
@@ -15,7 +17,6 @@
         color: red;
         text-align: center;
         display: block;">{{this.pelicula.valoration}}</div>
-      <div style="display:flex">{{this.pelicula.name}}</div>
         
         </div>
     </div>
@@ -37,7 +38,7 @@ export default {
         idPelicula: Number
     },
     created(){
-        fetch(`http://localhost:44326/api/Peliculas/${this.idPelicula}` , {
+        fetch(`https://localhost:44326/api/Peliculas/${this.idPelicula}` , {
 
         })
         .then((result) => result.json())

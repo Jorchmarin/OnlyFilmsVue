@@ -1,4 +1,12 @@
 <template>
+<div>
+<header style="padding-bottom: 10px">
+      <div>
+        <router-link to="/home" style="text-decoration: none">
+          &#129044; Volver a la home</router-link
+        >
+      </div>
+    </header>
   <div>
   <ul>
       <li v-for="pelicula in peliculas"
@@ -10,12 +18,8 @@
       </div>  
       </li>
   </ul>
-  <div>
-      <div id="nav">
-      <router-link to="/home">Volver a la home</router-link>
-
-    </div>
-  </div>     
+       
+  </div>
   </div>
 </template>
 
@@ -29,7 +33,7 @@ export default {
         };
     },
     created() {
-        fetch("http://localhost:44326/userWishlist/" + this.user.id, {})
+        fetch("https://localhost:44326/userWishlist/" + this.user.id, {})
             .then((result) => result.json())
             .then((data) => {
             this.peliculas = data;
@@ -45,7 +49,7 @@ export default {
     methods:{
         eliminarDeWishlist(id_Pelicula) {
       fetch(
-        "http://localhost:44326/getWishlistBy/" +
+        "https://localhost:44326/getWishlistBy/" +
           this.user.id +
           "/" +
           id_Pelicula,
@@ -56,12 +60,11 @@ export default {
       )
         .then((result) => result.json())
         .then((data) => {
-          console.log(data);
-          fetch("http://localhost:44326/api/Wishlists/" + data[0].id, {
+          fetch("https://localhost:44326/api/Wishlists/" + data[0].id, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             
-          });
+          }).then(this.$router.go(0),alert("Pelicula eliminada de la wishlist"));
         });
     },
     },

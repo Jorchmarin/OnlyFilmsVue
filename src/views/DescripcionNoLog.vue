@@ -1,8 +1,13 @@
 <template>
   <div>
     <div id="nav">
-      <div><router-link to="/">Volver a la home</router-link></div>
+       <header style="padding-bottom: 10px">
+      <div ><router-link to="/" style="text-decoration: none;"> 	
+&#129044; Volver a la home</router-link></div>
+      </header>
     </div>
+    <div style="display: flex; width: 20px; height: auto">
+    <br></div>
     <div class="movie-card" v-bind:style="{  backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,1)), url('${pelicula.imageUrl}')`}">
       <div class="movie-imgnl" >
         <div style="display:flex;height;:300px;"></div>
@@ -24,16 +29,15 @@
        </div>
     <div style="display:flex;marin:auto">
     <ul class="coments">
-      <li v-for="comentario in comentarios" :key="comentario.id">
-        <div class="div">{{ comentario.idUsuario }}</div>
+        <li class="individualcom" v-for="comentario in comentarios" :key="comentario.id">
 
-        <div class="div">{{ comentario.usuario.nick }}</div>
+          <div class="div">Usuario: <br>{{ comentario.usuario.nick }}</div>
 
-        <div class="div">{{ comentario.description }}</div>
+          <div style="display:flex;justify-content: center;max-width: 300px;"><p style="overflow-wrap: anywhere;">{{ comentario.description }}</p></div>
 
-        <div class="div">{{ comentario.fecha }}</div>
-      </li>
-    </ul>
+          <div class="div">{{ comentario.fecha }}</div>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -55,18 +59,17 @@ export default {
   },
 
   created() {
-    fetch("http://localhost:44326/api/Peliculas/" + this.$route.params.id)
+    fetch("https://localhost:44326/api/Peliculas/" + this.$route.params.id)
       .then((result) => result.json())
       .then((data) => (this.pelicula = data));
 
-    fetch("http://localhost:44326/comentariosPeli/" + this.$route.params.id)
+    fetch("https://localhost:44326/comentariosPeli/" + this.$route.params.id)
       .then((result) => result.json())
       .then((data) => {
         this.comentarios = data;
-        console.log(data);
       });
     //media puntuaciones
-    fetch("http://localhost:44326/media/" + this.$route.params.id)
+    fetch("https://localhost:44326/media/" + this.$route.params.id)
       .then((result) => result.json())
       .then((data) => {
         this.media = data;
@@ -101,7 +104,7 @@ export default {
 
 }
 .movie-imgnl {
-  min-height: 350px;
+  min-height: 275px;
   overflow: hidden;
   }
 .movie-imgnl img {
@@ -129,9 +132,18 @@ export default {
   grid-template-columns: repeat(1, 1fr);
   list-style: none;
   gap: 2em;
-  margin-top:10px;
+  margin-top: 10px;
   padding-left: 0px !important;
-
+  border: 2px black solid;
+}
+.individualcom{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 800px;
+  list-style: none;
+  gap: 2em;
+  margin-top: 10px;
+  padding-left: 0px !important;
 }
 
 </style>

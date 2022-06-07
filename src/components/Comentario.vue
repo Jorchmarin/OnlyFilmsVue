@@ -22,7 +22,7 @@ export default {
         idPelicula: Number
     },
     created(){
-        fetch("http://localhost:44326/api/Comentarios" , {
+        fetch("https://localhost:44326/api/Comentarios" , {
 
         })
         .then((result) => result.json())

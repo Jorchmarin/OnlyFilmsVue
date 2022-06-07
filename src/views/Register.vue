@@ -1,9 +1,16 @@
 <template>
+<div><header style="padding-bottom: 10px">
+      <div>
+        <router-link to="/" style="text-decoration: none">
+          &#129044; Volver a la home</router-link
+        >
+      </div>
+    </header>
   <div class="box">
     <form @submit.prevent="registerUser">
       <h1 class="mb-8 text-3xl text-center">Sign up</h1>
       <input type="text" placeholder="Full Name" v-model="name" required />
-      <input type="text" placeholder="Email" v-model="email" required />
+      <input type="email" placeholder="Email" v-model="email" required />
       <input
         type="password"
         placeholder="Password"
@@ -14,13 +21,13 @@
       <button type="submit" class="registerbtn">Create Account</button>
     </form>
 
-    <div>
-      <a href="/login">Ya tienes cuenta, logeate</a>
+    <div  style="margin-top: 10px">
+      
+      <a  style="text-decoration: none;" href="/login">Ya tienes cuenta, logeate</a>
+    </div>
     
-    <a href="/">Volver al inicio</a>
   </div>
   </div>
-  
 </template>
 
  <script>
@@ -36,7 +43,7 @@ export default {
   },
   methods: {
     async registerUser() {
-      await fetch("http://localhost:44326/api/Usuarios", {
+      await fetch("https://localhost:44326/api/Usuarios", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -58,6 +65,7 @@ export default {
         });
     },
   },
+  
 };
 </script>
 
@@ -78,7 +86,7 @@ export default {
 }
 
 /* Full-width input fields */
-input[type=text], input[type=password] {
+input[type=text], input[type=password] , input[type=email] {
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -87,7 +95,7 @@ input[type=text], input[type=password] {
   background: #f1f1f1;
 }
 
-input[type=text]:focus, input[type=password]:focus, input[type=nick]:focus {
+input[type=text]:focus, input[type=password]:focus, input[type=nick]:focus , input[type=email]:focus {
   background-color: #ddd;
   outline: none;
 }

@@ -27,7 +27,7 @@ export default {
     idPelicula: Number,
   },
   created() {
-    fetch(`http://localhost:44326/api/Peliculas/${this.idPelicula}`, {})
+    fetch(`https://localhost:44326/api/Peliculas/${this.idPelicula}`, {})
       .then((result) => result.json())
       .then((data) => {
         this.pelicula = data;

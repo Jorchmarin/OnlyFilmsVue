@@ -1,18 +1,32 @@
 <template>
-<div class="box">
-          <form @submit.prevent="loginUser">
-            <h1>Login</h1>
-            <input type="text" placeholder="Email" v-model="email" required />
-            <input type="password" placeholder="Password" v-model="password" required/>
-            <button type="submit" class="loginbtn"> Login Account</button>
-    </form>
-    <div>
-            <a href="/">Volver al inicio</a>
-           
-            <a href="/register">Aun no tienes cuenta. prueba a registrarte</a>
-            </div>
+  <div>
+    <header style="padding-bottom: 10px">
+      <div>
+        <router-link to="/" style="text-decoration: none">
+          &#129044; Volver a la home</router-link
+        >
+      </div>
+    </header>
+    <div class="box">
+      <form @submit.prevent="loginUser">
+        <h1>Login</h1>
+        <input type="text" placeholder="Email" v-model="email" required />
+        <input
+          type="password"
+          placeholder="Password"
+          v-model="password"
+          required
+        />
+        <button type="submit" class="loginbtn">Login Account</button>
+      </form>
+        <div style="margin-top: 10px">
+          <a style="text-decoration: none" href="/register"
+            >Aun no tienes cuenta. prueba a registrarte</a>
+    
+        
+      </div>
+    </div>
   </div>
-  
 </template>
 
  <script>
@@ -21,13 +35,12 @@ export default {
   data() {
     return {
       email: "",
-      password: ""
-      
+      password: "",
     };
   },
   methods: {
-     loginUser() {
-        fetch("http://localhost:44326/api/Usuarios/api/login", {
+    loginUser() {
+      fetch("https://localhost:44326/api/Usuarios/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -39,14 +52,13 @@ export default {
           response.json().then((data) => {
             this.$store.commit("setCurrentUser", data);
             this.$router.push("/home");
-            console.log(this.$store.getters.getCurrentUser);
           });
 
           alert("Login correcto");
 
           this.$router.push("/home");
         } else {
-          alert("Los datos son incorrectos o no existe el correo"); 
+          alert("Los datos son incorrectos o no existe el correo");
           //reject
         }
       });
@@ -60,13 +72,15 @@ export default {
   max-width: 500px;
   margin: 0 auto;
   border: 1px solid black;
-  border-radius: 10px; ;
-    padding: 16px;
-
+  border-radius: 10px;
+  padding: 16px;
+  margin-top: 15px;
 }
-* {box-sizing: border-box}
+* {
+  box-sizing: border-box;
+}
 .loginbtn {
-  background-color: #04AA6D;
+  background-color: #04aa6d;
   color: white;
   padding: 16px 20px;
   margin: 8px 0;

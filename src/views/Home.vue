@@ -10,13 +10,13 @@
         v-model="search"
         placeholder="Search..."
       />
-      <div style="margin: auto">
+      <div class="nickname" style="margin: auto">
         <p>hola {{ user.nick }}</p>
       </div>
 
       <div id="app" style="margin: auto">
         <div>
-          <div><router-link to="/">Cerrar sesión</router-link></div>
+          <div><router-link style="text-decoration: none;" to="/">Cerrar sesión</router-link></div>
         </div>
         <router-view />
       </div>
@@ -27,7 +27,7 @@
   </div>
 </div>
 
-    <div style="display: flex; margin-top: 40px">
+    <div class="movil">
       <div class="izq">
           <select @change="onChange($event)" v-model="key">
             <option selected hidden value="">Elige tu género favorito</option>
@@ -92,7 +92,7 @@
         <button class="cubo" @click="$router.push(`/pelicula/${aleatorio}`)">
 No sabes que ver, prueba nuestro sistema de pelicula aleatoria        </button>
 
-        <a style="margin-top:40px;text-decoration: none;" href="/wishlist">Wishlist</a>
+        <a style="margin-top:40px;margin-bottom:20px;text-decoration: none;color: red;" href="/wishlist">Wishlist</a>
         <li style="list-style:none;padding-bottom: 15px;" v-for="pelicula in peliculaswl" :key="pelicula.idPelicula">
           <div class="movie-cardwish">
             <Peliculawlhome :idPelicula="pelicula.idPelicula" />
@@ -100,6 +100,59 @@ No sabes que ver, prueba nuestro sistema de pelicula aleatoria        </button>
         </li>
       </div>
     </div>
+    <footer style="display: flex; width: 100%; height: 200px; margin-top: 40px">
+      <div  class="respo" style="display: flex; width: 33%; flex-direction: column">
+        <h3 style="display: flex; height: 25%; margin: auto">
+          Links de interes
+        </h3>
+        <a href="" style="display: flex;text-decoration: none; height: 25%; margin: auto"
+          >Funcionamiento</a
+        >
+        <a href="" style="display: flex;text-decoration: none; height: 25%; margin: auto">Soporte</a>
+        <a href="" style="display: flex;text-decoration: none; height: 25%; margin: auto">Ayuda</a>
+      </div>
+
+      <div class="respo" style="display: flex; width: 33%; flex-direction: column">
+        <h3 style="display: flex; height: 25%; margin: auto">Sobre nosotros</h3>
+        <p style="display: flex; height: 25%; margin: auto">Zaragoza, España</p>
+        <p style="display: flex; height: 25%; margin: auto">
+          info@onlyfilms.es
+        </p>
+        <p style="display: flex; height: 25%; margin: auto">+34 654 789 012</p>
+      </div>
+
+      <div class="respo" style="display: flex; width: 33%; flex-direction: column">
+        <h3 style="display: flex; height: 25%; margin: auto">Redes sociales</h3>
+        <div style="display: flex; height: 37.5%; margin: auto; gap: 30px">
+          <a style="display: flex; width: 50%; margin: auto" href=""
+            ><img
+              style="width: 25px; height: 25px"
+              src="../assets/logotipo-de-instagram.png"
+              alt=""
+          /></a>
+          <a style="display: flex; width: 50%; margin: auto" href=""
+            ><img
+              style="width: 25px; height: 25px"
+              src="../assets/whatsapp.png"
+              alt=""
+          /></a>
+        </div>
+        <div style="display: flex; height: 37.5%; margin: auto; gap: 30px">
+          <a style="display: flex; width: 50%; margin: auto" href=""
+            ><img
+              style="width: 25px; height: 25px"
+              src="../assets/gorjeo.png"
+              alt=""
+          /></a>
+          <a style="display: flex; width: 50%; margin: auto" href=""
+            ><img
+              style="width: 25px; height: 25px"
+              src="../assets/tik-tok.png"
+              alt=""
+          /></a>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -128,21 +181,21 @@ export default {
   },
 
   created() {
-    fetch("http://localhost:44326/api/Peliculas", {
+    fetch("https://localhost:44326/api/Peliculas", {
       headers: { "Content-Type": "application/json" },
     })
       .then((result) => result.json())
       .then((data) => {
         this.peliculas = data;
       });
-    fetch("http://localhost:44326/api/Generoes", {
+    fetch("https://localhost:44326/api/Generoes", {
       headers: { "Content-Type": "application/json" },
     })
       .then((result) => result.json())
       .then((data) => {
         this.generos = data;
       });
-    fetch("http://localhost:44326/userWishlist/" + this.user.id, {})
+    fetch("https://localhost:44326/userWishlist/" + this.user.id, {})
       .then((result) => result.json())
       .then((data) => {
         this.peliculaswl = data;
@@ -166,7 +219,7 @@ export default {
         idUsuario: this.user.id,
       });
 
-      fetch("http://localhost:44326/api/Wishlists", {
+      fetch("https://localhost:44326/api/Wishlists", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: item,
@@ -175,7 +228,7 @@ export default {
 
     eliminarDeWishlist(id_Pelicula) {
       fetch(
-        "http://localhost:44326/getWishlistBy/" +
+        "https://localhost:44326/getWishlistBy/" +
           this.user.id +
           "/" +
           id_Pelicula,
@@ -186,7 +239,7 @@ export default {
       )
         .then((result) => result.json())
         .then((data) => {
-          fetch("http://localhost:44326/api/Wishlists/" + data[0].id, {
+          fetch("https://localhost:44326/api/Wishlists/" + data[0].id, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
           });
@@ -195,7 +248,7 @@ export default {
 
     onChange(event) {
       this.key = event.target.value;
-      fetch("http://localhost:44326/getPelisBy/" + this.key)
+      fetch("https://localhost:44326/getPelisBy/" + this.key)
         .then((result) => result.json())
         .then((data) => {
           this.listaIds = data;
@@ -211,6 +264,10 @@ export default {
 </script>
 
 <style>
+.movil{
+   display: flex;
+    margin-top: 40px;
+}
 .img {
   width: 100px;
   height: 100px;
@@ -423,6 +480,62 @@ background-image: radial-gradient(circle at 56.16% 120.44%, #ff736c 0, #ff7a5b 4
   100% { left: -500px; opacity: 0; z-index:  0; } 
 }
 
+@media (max-width: 360px) {
+  
+.der{
+  display: none !important;
+  order:1;
+}
 
+.izq {
+  order:2;
+}
+.primelist{
+  display: flex !important;
+  justify-content: center !important;
+}
+ul{
+  display:flex !important;
+  flex-direction: column !important;
+  margin:auto !important;
+}
+.movil{
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  max-width: 360px !important;
+  margin: auto;
+  flex-direction: column;
+  padding-top: 20px;
+  }
+.mid{
+  width: 90% !important;
+  margin: auto !important;
+}
+.movie-card{
+  min-width: 300px !important;
+  margin: auto !important;
+}
+.botonvermas {
+    top: 2240px !important;
+    left: 40% !important;
+}
+.container{
+  display:none !important;
+}
+.nickname{
+  display:none !important;
+}
+footer{
+  flex-direction: column !important;
+  height: 500px !important;
+  justify-content: center !important;
+  margin: auto !important;
+}
+.respo{
+  width: 100% !important;
+  height: 100px !important;
+}
+}
 
 </style>

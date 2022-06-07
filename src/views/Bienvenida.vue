@@ -1,18 +1,26 @@
 <template>
   <div>
-    <h1>Bienvenido a onlyfilms</h1>
-    <!---register and login-->
-    <div><a href="/register">Aun no tienes cuenta registrate</a></div>
-    <div><a href="/login">Ya tienes cuenta, inicia sesion</a></div>
+    <header>
+      <h1 style="display: flex; width: 50%">Bienvenido a onlyfilms</h1>
+      <input
+        style="margin: auto"
+        id="input-search"
+        type="text"
+        class="form-control"
+        v-model="search"
+        placeholder="Search..."
+      />
+      <!---register and login-->
+      <div class="vacio" style="display: flex; margin: auto; width: 15%"></div>
+      <div style="display: flex; margin: auto; width: 25%">
+        <a style="text-decoration: none;color:black" href="/register">Aun no tienes cuenta <b style="color:blue">registrate</b></a>
+        <a style="text-decoration: none;color:black" href="/login">Ya tienes cuenta,  <b style="color:blue">inicia sesion</b></a>
+      </div>
+    </header>
 
-<div class="container">
-  <div class="inner">
-    <div id="one" class="item first">Bienvenido a Onlyfilms, la página web dónde cada vez mas usuarios acuden a documentarse sobre los nuevos estrenos</div><div id="two" class="item second">Con ayuda de los usuarios te ayudaremos a elegir los proximos titulos que quieres ver, pero quieres informarte primero</div><div id="three" class="item third">Deja tus puntuaciones y comentarios en las películas que hayas visto para ayudar a más usuarios</div><div id="four" class="item fourth">Guarda en la Wishlist las películas que te interesan, para verlas próximamente</div>
-  </div>
-</div>
-   <div style="display: flex; margin-top: 40px">
-   
-      <div class="izq">
+    <div style="display: flex; margin-top: 20px">
+      <div class="movil">
+        <div class="izq">
           <select @change="onChange($event)" v-model="key">
             <option selected hidden value="">Elige tu género favorito</option>
             <option
@@ -24,71 +32,123 @@
             </option>
           </select>
           <div>
-            <ul class="ulge" style="margin-top: 20px;">
+            <ul class="ulge" style="margin-top: 20px">
               <li v-for="id in listaIds" :key="id">
                 <div class="movie-cardge">
                   <Peliculage :idPelicula="id" />
-                  
                 </div>
               </li>
             </ul>
           </div>
-      </div>
-      <div class="mid">
-        <div style="width:100%">           
-         <button class="botonvermas" v-show="!showMore" @click="showMore = true">Ver más</button>
-
-          <ul v-if="!showMore">
-            <li
-              class="primelist"
-              v-for="(pelicula, index) in searchPelis"
-              :key="pelicula.id"
+        </div>
+        <div class="mid">
+          <div style="width: 100%">
+            <button
+              class="botonvermasb"
+              v-show="!showMore"
+              @click="showMore = true"
             >
-              <template v-if="index <= 6">
+              Ver más
+            </button>
+
+            <ul v-if="!showMore">
+              <li
+                class="primelist"
+                v-for="(pelicula, index) in searchPelis"
+                :key="pelicula.id"
+              >
+                <template v-if="index <= 6">
+                  <div class="movie-card">
+                    <PeliculaBienvenida :idPelicula="pelicula.id" />
+                  </div>
+                </template>
+              </li>
+            </ul>
+
+            <ul v-else>
+              <li
+                class="primelist"
+                v-for="pelicula in searchPelis"
+                :key="pelicula.id"
+              >
                 <div class="movie-card">
-                  
                   <PeliculaBienvenida :idPelicula="pelicula.id" />
-
-                    
                 </div>
-              </template>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="der">
+          <button
+            class="cubo"
+            @click="$router.push(`/peliculanl/${aleatorio}`)"
+          >
+            No sabes que ver, prueba nuestro sistema de pelicula aleatoria
+          </button>
 
-            </li>
-          </ul>
-
-          <ul v-else>
-            
-            <li
-              class="primelist"   
-
-              v-for="pelicula in searchPelis"
-              :key="pelicula.id"
-            >
-              <div class="movie-card">
-                <PeliculaBienvenida :idPelicula="pelicula.id" />
-
-              </div>
-            </li>
-          </ul>
+          <div><p>Logeate para poder tener tu propia Wishlist</p></div>
         </div>
       </div>
-      <div class="der">
-        <button class="cubo" @click="$router.push(`/peliculanl/${aleatorio}`)">
-No sabes que ver, prueba nuestro sistema de pelicula aleatoria        </button>
-
-        <a style="margin-top:40px;text-decoration: none;">Wishlist</a>
-      
-      </div>
     </div>
+    <footer style="display: flex; width: 100%; height: 200px; margin-top: 40px">
+      <div style="display: flex; width: 33%; flex-direction: column">
+        <h3 style="display: flex; height: 25%; margin: auto">
+          Links de interes
+        </h3>
+        <a  href="" style="text-decoration: none;display: flex; height: 25%; margin: auto"
+          >Funcionamiento</a
+        >
+        <a href="" style="text-decoration: none;display: flex; height: 25%; margin: auto">Soporte</a>
+        <a href="" style="text-decoration: none;display: flex; height: 25%; margin: auto">Ayuda</a>
+      </div>
+
+      <div style="display: flex; width: 33%; flex-direction: column">
+        <h3 style="display: flex; height: 25%; margin: auto">Sobre nosotros</h3>
+        <p style="display: flex; height: 25%; margin: auto">Zaragoza, España</p>
+        <p style="display: flex; height: 25%; margin: auto">
+          info@onlyfilms.es
+        </p>
+        <p style="display: flex; height: 25%; margin: auto">+34 654 789 012</p>
+      </div>
+
+      <div style="display: flex; width: 33%; flex-direction: column">
+        <h3 style="display: flex; height: 25%; margin: auto">Redes sociales</h3>
+        <div style="display: flex; height: 37.5%; margin: auto; gap: 30px">
+          <a style="display: flex; width: 50%; margin: auto" href=""
+            ><img
+              style="width: 25px; height: 25px"
+              src="../assets/logotipo-de-instagram.png"
+              alt=""
+          /></a>
+          <a style="display: flex; width: 50%; margin: auto" href=""
+            ><img
+              style="width: 25px; height: 25px"
+              src="../assets/whatsapp.png"
+              alt=""
+          /></a>
+        </div>
+        <div style="display: flex; height: 37.5%; margin: auto; gap: 30px">
+          <a style="display: flex; width: 50%; margin: auto" href=""
+            ><img
+              style="width: 25px; height: 25px"
+              src="../assets/gorjeo.png"
+              alt=""
+          /></a>
+          <a style="display: flex; width: 50%; margin: auto" href=""
+            ><img
+              style="width: 25px; height: 25px"
+              src="../assets/tik-tok.png"
+              alt=""
+          /></a>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
 <script>
-
-
 import PeliculaBienvenida from "../components/PeliculaBienvenida.vue";
 import Peliculage from "../components/Peliculage.vue";
-
 
 export default {
   name: "Bienvenida",
@@ -108,21 +168,21 @@ export default {
   },
 
   created() {
-    fetch("http://localhost:44326/api/Peliculas", {
+    fetch("https://localhost:44326/api/Peliculas", {
       headers: { "Content-Type": "application/json" },
     })
       .then((result) => result.json())
       .then((data) => {
         this.peliculas = data;
       });
-    fetch("http://localhost:44326/api/Generoes", {
+    fetch("https://localhost:44326/api/Generoes", {
       headers: { "Content-Type": "application/json" },
     })
       .then((result) => result.json())
       .then((data) => {
         this.generos = data;
       });
-    fetch("http://localhost:44326/userWishlist/" + this.user.id, {})
+    fetch("https://localhost:44326/userWishlist/" + this.user.id, {})
       .then((result) => result.json())
       .then((data) => {
         this.peliculaswl = data;
@@ -146,7 +206,7 @@ export default {
         idUsuario: this.user.id,
       });
 
-      fetch("http://localhost:44326/api/Wishlists", {
+      fetch("https://localhost:44326/api/Wishlists", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: item,
@@ -155,7 +215,7 @@ export default {
 
     eliminarDeWishlist(id_Pelicula) {
       fetch(
-        "http://localhost:44326/getWishlistBy/" +
+        "https://localhost:44326/getWishlistBy/" +
           this.user.id +
           "/" +
           id_Pelicula,
@@ -166,7 +226,7 @@ export default {
       )
         .then((result) => result.json())
         .then((data) => {
-          fetch("http://localhost:44326/api/Wishlists/" + data[0].id, {
+          fetch("https://localhost:44326/api/Wishlists/" + data[0].id, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
           });
@@ -175,7 +235,7 @@ export default {
 
     onChange(event) {
       this.key = event.target.value;
-      fetch("http://localhost:44326/getPelisBy/" + this.key)
+      fetch("https://localhost:44326/getPelisBy/" + this.key)
         .then((result) => result.json())
         .then((data) => {
           this.listaIds = data;
@@ -199,9 +259,8 @@ ul {
   grid-template-columns: repeat(4, 1fr);
   list-style: none;
   gap: 2em;
-  margin:auto;
-    padding-left: 0px !important;
-
+  margin: auto;
+  padding-left: 0px !important;
 }
 .ulge {
   display: grid;
@@ -219,22 +278,19 @@ ul {
 .primelist:first-child img {
   width: 100%;
   height: 500px;
-  
-
 }
-.primelist:first-child  .movie-card .body{
-  display:none;
-
+.primelist:first-child .movie-card .body {
+  display: none;
 }
-.primelist:first-child  .movie-card {
-max-width: 333px
+.primelist:first-child .movie-card {
+  max-width: 333px;
 }
 
 .primelist:nth-child(2) {
   grid-column: 3/5;
   grid-row: 1/3;
 }
-.primelist:nth-child(2) img{
+.primelist:nth-child(2) img {
   height: 240px;
   width: 200px;
 }
@@ -242,13 +298,13 @@ max-width: 333px
   grid-column: 3/5;
   grid-row: 2/3;
 }
-.primelist:nth-child(3) img{
-   width: 200px;
-     height: 240px;
-     overflow: hidden;
+.primelist:nth-child(3) img {
+  width: 200px;
+  height: 240px;
+  overflow: hidden;
 }
-.primelist:nth-child(3) body{
-   margin:auto;
+.primelist:nth-child(3) body {
+  margin: auto;
 }
 
 .izq {
@@ -288,7 +344,6 @@ max-width: 333px
   cursor: pointer;
   width: 200px !important;
   min-height: 100px !important;
-  
 }
 .movie-cardge {
   background-color: #fff;
@@ -299,7 +354,7 @@ max-width: 333px
   width: 75px !important;
   height: 110px !important;
 }
-.movie-cardge img{
+.movie-cardge img {
   height: 80px;
   width: 75px;
 }
@@ -321,7 +376,7 @@ header {
   margin-bottom: 10px;
   width: 50% !important;
 }
-.cubo{
+.cubo {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -330,14 +385,41 @@ header {
   font-size: large;
   border-radius: 25px;
   border: 2px black solid;
-background-image: radial-gradient(circle at 56.16% 120.44%, #ff736c 0, #ff7a5b 4.55%, #ff824c 9.09%, #ff8a3c 13.64%, #ff922c 18.18%, #f89a1c 22.73%, #eaa105 27.27%, #dca800 31.82%, #ccae00 36.36%, #bbb400 40.91%, #aab900 45.45%, #97bd15 50%, #83c128 54.55%, #6bc43a 59.09%, #4fc74b 63.64%, #1ec95c 68.18%, #00cb6e 72.73%, #00cd80 77.27%, #00ce93 81.82%, #00cfa5 86.36%, #00d0b8 90.91%, #00d0cb 95.45%, #00d0dd 100%);}
-.botonvermas{
+  background-image: radial-gradient(
+    circle at 56.16% 120.44%,
+    #ff736c 0,
+    #ff7a5b 4.55%,
+    #ff824c 9.09%,
+    #ff8a3c 13.64%,
+    #ff922c 18.18%,
+    #f89a1c 22.73%,
+    #eaa105 27.27%,
+    #dca800 31.82%,
+    #ccae00 36.36%,
+    #bbb400 40.91%,
+    #aab900 45.45%,
+    #97bd15 50%,
+    #83c128 54.55%,
+    #6bc43a 59.09%,
+    #4fc74b 63.64%,
+    #1ec95c 68.18%,
+    #00cb6e 72.73%,
+    #00cd80 77.27%,
+    #00ce93 81.82%,
+    #00cfa5 86.36%,
+    #00d0b8 90.91%,
+    #00d0cb 95.45%,
+    #00d0dd 100%
+  );
+}
+.botonvermasb {
   position: absolute;
   top: 1050px;
   left: 47.9%;
 }
 
-.container, .item {
+.container,
+.item {
   width: 100%;
   height: 50px;
   line-height: 50px;
@@ -345,7 +427,7 @@ background-image: radial-gradient(circle at 56.16% 120.44%, #ff736c 0, #ff7a5b 4
 .container {
   margin: 0 auto;
   height: 50px;
-  text-align: center; 
+  text-align: center;
   position: relative;
   overflow: hidden;
   border-radius: 10px;
@@ -362,45 +444,204 @@ background-image: radial-gradient(circle at 56.16% 120.44%, #ff736c 0, #ff7a5b 4
   z-index: 0;
 }
 
-.first { animation: cycleone 30s ease-in-out infinite; }
-.second { animation: cycletwo 30s ease-in-out infinite; }
-.third { animation: cyclethree 30s ease-in-out infinite; }
-.fourth { animation: cyclefour 30s ease-in-out infinite; }
+.first {
+  animation: cycleone 30s ease-in-out infinite;
+}
+.second {
+  animation: cycletwo 30s ease-in-out infinite;
+}
+.third {
+  animation: cyclethree 30s ease-in-out infinite;
+}
+.fourth {
+  animation: cyclefour 30s ease-in-out infinite;
+}
 @keyframes cycleone {
-    0% { left:    0px; opacity: 1; z-index:  0; } 
-   20% { left:    0px; opacity: 1; z-index:  0; } 
-   25% { left: -500px; opacity: 0; z-index:  0; } 
-   26% { left: -500px; opacity: 0; z-index: -1; } 
-   27% { left:  500px; opacity: 0; z-index: -1; } 
-   95% { left:  500px; opacity: 0; z-index:  0; } 
-  100% { left:    0px; opacity: 1; z-index:  0; }
+  0% {
+    left: 0px;
+    opacity: 1;
+    z-index: 0;
+  }
+  20% {
+    left: 0px;
+    opacity: 1;
+    z-index: 0;
+  }
+  25% {
+    left: -500px;
+    opacity: 0;
+    z-index: 0;
+  }
+  26% {
+    left: -500px;
+    opacity: 0;
+    z-index: -1;
+  }
+  27% {
+    left: 500px;
+    opacity: 0;
+    z-index: -1;
+  }
+  95% {
+    left: 500px;
+    opacity: 0;
+    z-index: 0;
+  }
+  100% {
+    left: 0px;
+    opacity: 1;
+    z-index: 0;
+  }
 }
 @keyframes cycletwo {
-    0% { left:  500px; opacity: 0; } 
-   20% { left:  500px; opacity: 0; } 
-   25% { left:    0px; opacity: 1; } 
-   45% { left:    0px; opacity: 1; z-index:  0; } 
-   50% { left: -500px; opacity: 0; z-index:  0; }
-   51% { left:  500px; opacity: 0; z-index: -1; } 
-  100% { left:  500px; opacity: 0; z-index: -1; } 
+  0% {
+    left: 500px;
+    opacity: 0;
+  }
+  20% {
+    left: 500px;
+    opacity: 0;
+  }
+  25% {
+    left: 0px;
+    opacity: 1;
+  }
+  45% {
+    left: 0px;
+    opacity: 1;
+    z-index: 0;
+  }
+  50% {
+    left: -500px;
+    opacity: 0;
+    z-index: 0;
+  }
+  51% {
+    left: 500px;
+    opacity: 0;
+    z-index: -1;
+  }
+  100% {
+    left: 500px;
+    opacity: 0;
+    z-index: -1;
+  }
 }
 @keyframes cyclethree {
-    0% { left:  500px; opacity: 0; } 
-   45% { left:  500px; opacity: 0; z-index: -1; }  
-   50% { left:    0px; opacity: 1; z-index:  0; } 
-   70% { left:    0px; opacity: 1; z-index:  0; } 
-   75% { left: -500px; opacity: 0; z-index:  0; } 
-   76% { left:  500px; opacity: 0; z-index: -1; } 
-  100% { left:  500px; opacity: 0; z-index: -1; } 
+  0% {
+    left: 500px;
+    opacity: 0;
+  }
+  45% {
+    left: 500px;
+    opacity: 0;
+    z-index: -1;
+  }
+  50% {
+    left: 0px;
+    opacity: 1;
+    z-index: 0;
+  }
+  70% {
+    left: 0px;
+    opacity: 1;
+    z-index: 0;
+  }
+  75% {
+    left: -500px;
+    opacity: 0;
+    z-index: 0;
+  }
+  76% {
+    left: 500px;
+    opacity: 0;
+    z-index: -1;
+  }
+  100% {
+    left: 500px;
+    opacity: 0;
+    z-index: -1;
+  }
 }
 @keyframes cyclefour {
-    0% { left:  500px; opacity: 0; z-index: -1; }
-   70% { left:  500px; opacity: 0; z-index:  0; }  
-   75% { left:    0px; opacity: 1; z-index:  0; } 
-   95% { left:    0px; opacity: 1; z-index:  0; } 
-  100% { left: -500px; opacity: 0; z-index:  0; } 
+  0% {
+    left: 500px;
+    opacity: 0;
+    z-index: -1;
+  }
+  70% {
+    left: 500px;
+    opacity: 0;
+    z-index: 0;
+  }
+  75% {
+    left: 0px;
+    opacity: 1;
+    z-index: 0;
+  }
+  95% {
+    left: 0px;
+    opacity: 1;
+    z-index: 0;
+  }
+  100% {
+    left: -500px;
+    opacity: 0;
+    z-index: 0;
+  }
 }
 
+@media (max-width: 360px) {
+  .der {
+    display: none !important;
+    order: 1;
+  }
 
+  .izq {
+    order: 2;
+  }
+  .primelist {
+    display: flex !important;
+    justify-content: center !important;
+  }
+  ul {
+    display: flex !important;
+    flex-direction: column !important;
+    margin: auto !important;
+  }
+  .movil {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    max-width: 360px !important;
+    margin: auto;
+    flex-direction: column;
+    padding-top: 20px;
+  }
 
+  .mid {
+    width: 90% !important;
+    margin: auto !important;
+  }
+  .movie-card {
+    min-width: 300px !important;
+    margin: auto !important;
+  }
+  .botonvermasb {
+    top: 2340px !important;
+    left: 40% !important;
+  }
+  .container {
+    display: none !important;
+  }
+  .nickname {
+    display: none !important;
+  }
+  .form-control {
+    display: none !important;
+  }
+  .vacio {
+    display: none !important;
+  }
+}
 </style>
