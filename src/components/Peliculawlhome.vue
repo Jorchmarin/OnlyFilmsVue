@@ -6,7 +6,7 @@
     <div style="display: flex; flex-direction: column; margin: auto">
       {{ this.pelicula.name }}
       <button
-        style="width: 50px; margin: auto"
+        style="width: 50px;border-radius: 5px;color: orangered; margin: auto"
         @click="$router.push(`/pelicula/${pelicula.id}`)"
       >
         Ver

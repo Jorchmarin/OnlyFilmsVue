@@ -3,13 +3,13 @@
     <div id="nav">
       <header style="padding-bottom: 10px">
         <div>
-          <router-link to="/home" style="text-decoration: none">
-            &#129044; Volver a la home</router-link
-          >
-        </div>
+        <router-link to="/home" style="text-decoration: none">
+          <img src="../assets/logo.png" style="width: 120px" /> </router-link
+        >
+      </div>
         <div>
-          <router-link style="text-decoration: none" to="/wishlist"
-            >Wishlist</router-link
+          <router-link style="text-decoration: none;color: orangered;" to="/wishlist"
+            >&#10084;Wishlist  &#10084;</router-link
           >
         </div>
       </header>
@@ -39,9 +39,12 @@
             <input
               class="combox"
               type="text"
-              placeholder="Escribe tu comentario aqui"
+              placeholder="Escribe tu comentario aqui (Más de 7 caracteres)"
               v-model="content"
               required
+              style="background-color: transparent;
+                color: white;
+                border: 2px solid white;"
               
             />
             <button
@@ -72,6 +75,9 @@
                     margin-right: 5px;
                     border-radius: 10px;
                     border-color: white;
+                    background-color: transparent;
+                color: white;
+                border: 2px solid white;
                   "
                   type="number"
                   min="0"
@@ -83,11 +89,15 @@
                   required
                 />
 
-                <button type="submit" @click="puntuar(puntos)">Puntuar</button>
+                <button type="submit" style="background-color: transparent;
+                color: white;
+                border: 2px solid white;" @click="puntuar(puntos)">Puntuar</button>
               </form>
             </div>
             <div style="display: flex">
-              <button @click="addWishlist(pelicula.id)">Añadir wishlist</button>
+              <button style="background-color: transparent;
+                color: white;
+                border: 2px solid white;" @click="addWishlist(pelicula.id)">Añadir wishlist</button>
             </div>
           </div>
         </div>
@@ -176,7 +186,7 @@ export default {
         headers: { "Content-Type": "application/json" },
         body: item,
         
-      }).then(this.$router.go(0),alert("Comentario añadido"));
+      }).then(this.$router.go(0));
     },
     puntuar(puntos) {
       let item2 = JSON.stringify({
@@ -184,7 +194,8 @@ export default {
         idUsuario: this.user.id,
         Puntuacion1: puntos,
       });
-      fetch("https://localhost:44326/api/Puntuacions", {
+      if(this.puntos<=10){
+        fetch("https://localhost:44326/api/Puntuacions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: item2,
@@ -197,8 +208,12 @@ export default {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: item2,
-          });
-        }).then(this.$router.go(0),alert("Puntuacion añadida"));
+          })
+        }).then(this.$router.go(this.$router.currentRoute));
+        }else{
+          alert("Puntuacion no valida")
+        }
+      
     },
     goto(refName) {
       var element = this.$refs[refName];

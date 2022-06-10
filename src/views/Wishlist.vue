@@ -3,10 +3,14 @@
 <header style="padding-bottom: 10px">
       <div>
         <router-link to="/home" style="text-decoration: none">
-          &#129044; Volver a la home</router-link
+          <img src="../assets/logo.png" style="width: 200px" /> </router-link
         >
       </div>
     </header>
+     
+    <div>
+      <h1>Wishlist de {{user.name}}</h1>
+    </div>
   <div>
   <ul>
       <li v-for="pelicula in peliculas"

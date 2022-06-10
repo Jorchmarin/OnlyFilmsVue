@@ -2,8 +2,12 @@
   <div>
     <div id="nav">
        <header style="padding-bottom: 10px">
-      <div ><router-link to="/" style="text-decoration: none;"> 	
-&#129044; Volver a la home</router-link></div>
+      <div>
+        <router-link to="/" style="text-decoration: none">
+          <img src="../assets/logo.png" style="width: 120px" /> </router-link
+        >
+      </div>
+       
       </header>
     </div>
     <div style="display: flex; width: 20px; height: auto">
@@ -35,7 +39,7 @@
 
           <div style="display:flex;justify-content: center;max-width: 300px;"><p style="overflow-wrap: anywhere;">{{ comentario.description }}</p></div>
 
-          <div class="div">{{ comentario.fecha }}</div>
+          <div class="div">Fecha de publicación: <br>{{ comentario.fecha.substring(0, 10) }}</div>
         </li>
       </ul>
     </div>

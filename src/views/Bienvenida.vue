@@ -1,7 +1,9 @@
 <template>
   <div>
     <header>
-      <h1 style="display: flex; width: 50%">Bienvenido a onlyfilms</h1>
+      <div style="display: flex; width: 50%">
+        <img src="../assets/logo.png" style="width: 300px" class="logo" />
+      </div>
       <input
         style="margin: auto"
         id="input-search"
@@ -13,96 +15,151 @@
       <!---register and login-->
       <div class="vacio" style="display: flex; margin: auto; width: 15%"></div>
       <div style="display: flex; margin: auto; width: 25%">
-        <a style="text-decoration: none;color:black" href="/register">Aun no tienes cuenta <b style="color:blue">registrate</b></a>
-        <a style="text-decoration: none;color:black" href="/login">Ya tienes cuenta,  <b style="color:blue">inicia sesion</b></a>
+        <a style="text-decoration: none; color: black" href="/register"
+          >Aun no tienes cuenta <b style="color: orangered">registrate</b></a
+        >
+        <a style="text-decoration: none; color: black;" href="/login"
+          >Ya tienes cuenta, <b style="color: orangered">inicia sesion</b></a
+        >
       </div>
     </header>
-
-    <div style="display: flex; margin-top: 20px">
-      <div class="movil">
-        <div class="izq">
-          <select @change="onChange($event)" v-model="key">
-            <option selected hidden value="">Elige tu género favorito</option>
-            <option
-              v-for="genero in generos"
-              :key="genero.id"
-              :value="genero.id"
-            >
-              {{ genero.name }}
-            </option>
-          </select>
-          <div>
-            <ul class="ulge" style="margin-top: 20px">
-              <li v-for="id in listaIds" :key="id">
-                <div class="movie-cardge">
-                  <Peliculage :idPelicula="id" />
-                </div>
-              </li>
-            </ul>
-          </div>
+<div class="container">
+      <div class="inner">
+        <div id="one" class="item first">
+          Bienvenido a Onlyfilms, la página web dónde cada vez mas usuarios
+          acuden a documentarse sobre los nuevos estrenos
         </div>
-        <div class="mid">
-          <div style="width: 100%">
-            <button
-              class="botonvermasb"
-              v-show="!showMore"
-              @click="showMore = true"
-            >
-              Ver más
-            </button>
-
-            <ul v-if="!showMore">
-              <li
-                class="primelist"
-                v-for="(pelicula, index) in searchPelis"
-                :key="pelicula.id"
-              >
-                <template v-if="index <= 6">
-                  <div class="movie-card">
-                    <PeliculaBienvenida :idPelicula="pelicula.id" />
-                  </div>
-                </template>
-              </li>
-            </ul>
-
-            <ul v-else>
-              <li
-                class="primelist"
-                v-for="pelicula in searchPelis"
-                :key="pelicula.id"
-              >
-                <div class="movie-card">
-                  <PeliculaBienvenida :idPelicula="pelicula.id" />
-                </div>
-              </li>
-            </ul>
-          </div>
+        <div id="two" class="item second">
+          Con ayuda de los usuarios te ayudaremos a elegir los proximos titulos
+          que quieres ver, pero quieres informarte primero
         </div>
-        <div class="der">
-          <button
-            class="cubo"
-            @click="$router.push(`/peliculanl/${aleatorio}`)"
-          >
-            No sabes que ver, prueba nuestro sistema de pelicula aleatoria
-          </button>
-
-          <div><p>Logeate para poder tener tu propia Wishlist</p></div>
+        <div id="three" class="item third">
+          Deja tus puntuaciones y comentarios en las películas que hayas visto
+          para ayudar a más usuarios
+        </div>
+        <div id="four" class="item fourth">
+          Guarda en la Wishlist las películas que te interesan, para verlas
+          próximamente
         </div>
       </div>
     </div>
+    
+    <div class="movil">
+      <div class="izq">
+        <select @change="onChange($event)" v-model="key" style="border-radius:5px;color:orangered;">
+          <option selected hidden value="">Elige tu género favorito</option>
+          <option v-for="genero in generos" :key="genero.id" :value="genero.id">
+            {{ genero.name }}
+          </option>
+        </select>
+        <div>
+          <ul class="ulge" style="margin-top: 20px">
+            <li v-for="id in listaIds" :key="id">
+              <div class="movie-cardge">
+                <Peliculage :idPelicula="id" />
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="mid">
+        <div style="width: 100%">
+          <button
+            class="botonvermas"
+            v-show="!showMore"
+            @click="showMore = true"
+          >
+            Ver más
+          </button>
+
+          <ul v-if="!showMore">
+            <li
+              class="primelist"
+              v-for="(pelicula, index) in searchPelis"
+              :key="pelicula.id"
+            >
+              <template v-if="index <= 6">
+                <div class="movie-card">
+                  <PeliculaBienvenida :idPelicula="pelicula.id" />
+                </div>
+              </template>
+            </li>
+          </ul>
+
+          <ul v-else>
+            <li
+              class="primelist"
+              v-for="pelicula in searchPelis"
+              :key="pelicula.id"
+            >
+              <div class="movie-card">
+                <PeliculaBienvenida :idPelicula="pelicula.id" />
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="der">
+        <button class="cubo" @click="$router.push(`/peliculanl/${aleatorio}`)">
+          Prueba nuestro sistema de pelicula aleatoria
+        </button>
+
+        <p
+          style="
+            margin-top: 40px;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: orangered;
+          "
+          >&#10084;&#10084; <br> Inicia sesión para acceder a tu propia wishlist <br> &#10084;&#10084;
+        </p>
+
+      </div>
+    </div>
     <footer style="display: flex; width: 100%; height: 200px; margin-top: 40px">
-      <div style="display: flex; width: 33%; flex-direction: column">
+      <div
+        class="respo"
+        style="display: flex; width: 33%; flex-direction: column"
+      >
         <h3 style="display: flex; height: 25%; margin: auto">
           Links de interes
         </h3>
-        <a  href="" style="text-decoration: none;display: flex; height: 25%; margin: auto"
+        <a
+          href=""
+          style="
+            display: flex;
+            text-decoration: none;
+            height: 25%;
+            margin: auto;
+          "
           >Funcionamiento</a
         >
-        <a href="" style="text-decoration: none;display: flex; height: 25%; margin: auto">Soporte</a>
-        <a href="" style="text-decoration: none;display: flex; height: 25%; margin: auto">Ayuda</a>
+        <a
+          href=""
+          style="
+            display: flex;
+            text-decoration: none;
+            height: 25%;
+            margin: auto;
+          "
+          >Soporte</a
+        >
+        <a
+          href=""
+          style="
+            display: flex;
+            text-decoration: none;
+            height: 25%;
+            margin: auto;
+          "
+          >Ayuda</a
+        >
       </div>
 
-      <div style="display: flex; width: 33%; flex-direction: column">
+      <div
+        class="respo"
+        style="display: flex; width: 33%; flex-direction: column"
+      >
         <h3 style="display: flex; height: 25%; margin: auto">Sobre nosotros</h3>
         <p style="display: flex; height: 25%; margin: auto">Zaragoza, España</p>
         <p style="display: flex; height: 25%; margin: auto">
@@ -111,7 +168,10 @@
         <p style="display: flex; height: 25%; margin: auto">+34 654 789 012</p>
       </div>
 
-      <div style="display: flex; width: 33%; flex-direction: column">
+      <div
+        class="respo"
+        style="display: flex; width: 33%; flex-direction: column"
+      >
         <h3 style="display: flex; height: 25%; margin: auto">Redes sociales</h3>
         <div style="display: flex; height: 37.5%; margin: auto; gap: 30px">
           <a style="display: flex; width: 50%; margin: auto" href=""
@@ -162,7 +222,7 @@ export default {
       listaIds: [],
       showMore: false,
       peliculaswl: [],
-      aleatorio: Math.round(Math.random() * 40),
+      aleatorio: Math.round(Math.random() * 39),
       search: "",
     };
   },
@@ -381,36 +441,11 @@ header {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100px;
+  height: 80px;
   font-size: large;
   border-radius: 25px;
-  border: 2px black solid;
-  background-image: radial-gradient(
-    circle at 56.16% 120.44%,
-    #ff736c 0,
-    #ff7a5b 4.55%,
-    #ff824c 9.09%,
-    #ff8a3c 13.64%,
-    #ff922c 18.18%,
-    #f89a1c 22.73%,
-    #eaa105 27.27%,
-    #dca800 31.82%,
-    #ccae00 36.36%,
-    #bbb400 40.91%,
-    #aab900 45.45%,
-    #97bd15 50%,
-    #83c128 54.55%,
-    #6bc43a 59.09%,
-    #4fc74b 63.64%,
-    #1ec95c 68.18%,
-    #00cb6e 72.73%,
-    #00cd80 77.27%,
-    #00ce93 81.82%,
-    #00cfa5 86.36%,
-    #00d0b8 90.91%,
-    #00d0cb 95.45%,
-    #00d0dd 100%
-  );
+  border: 3px black solid;
+  color: orangered;
 }
 .botonvermasb {
   position: absolute;
@@ -595,6 +630,9 @@ header {
   .der {
     display: none !important;
     order: 1;
+  }
+  .logo {
+    width: 200px !important;
   }
 
   .izq {

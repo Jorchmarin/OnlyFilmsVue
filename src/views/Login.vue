@@ -1,9 +1,9 @@
 <template>
   <div>
-    <header style="padding-bottom: 10px">
+     <header style="padding-bottom: 10px">
       <div>
         <router-link to="/" style="text-decoration: none">
-          &#129044; Volver a la home</router-link
+          <img src="../assets/logo.png" style="width: 200px" /> </router-link
         >
       </div>
     </header>
